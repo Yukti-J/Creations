@@ -11,7 +11,7 @@ const Board = () => {
   const historyPointer = useRef(0);
   const { color, size } = useSelector((state) => state.toolbox[activeMenuItem]);
   const dispatch = useDispatch();
-  let startX, startY, xLine, yLine, x, y;
+  let startX, startY;
 
   // HOOK FOR SETTING COLOR AND SIZE
   useEffect(() => {
@@ -60,6 +60,7 @@ const Board = () => {
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    
     context.fillStyle = 'white'
     context.fillRect(0,0,canvas.width, canvas.height)
         
@@ -81,10 +82,8 @@ const Board = () => {
         activeMenuItem === MENU_ITEMS.PENCIL ||
         activeMenuItem === MENU_ITEMS.ERASER
       ) {
-        xLine = e.clientX;
-        yLine = e.clientY;
         context.beginPath();
-        context.moveTo(xLine, yLine);
+        context.moveTo(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
       }
     };
 
@@ -94,9 +93,7 @@ const Board = () => {
         activeMenuItem === MENU_ITEMS.PENCIL ||
         activeMenuItem === MENU_ITEMS.ERASER
       ) {
-        x = e.clientX;
-        y = e.clientY;
-        context.lineTo(x,y);
+        context.lineTo(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
         context.stroke();
       }
     };
@@ -138,8 +135,8 @@ const Board = () => {
       shouldDraw.current = true; 
       context.beginPath();
       if (activeMenuItem === MENU_ITEMS.RECTANGLE) {
-        startX = e.pageX - canvas.offsetLeft;
-        startY = e.pageY - canvas.offsetTop;
+        startX = e.clientX || e.touches[0].clientX - canvas.offsetLeft;
+        startY = e.clientY || e.touches[0].clientY - canvas.offsetTop;
       }
       // context.moveTo(startX,startY);
     }
@@ -152,8 +149,8 @@ const Board = () => {
     const handleMouseUpRect = (e) => {
       shouldDraw.current = false;
       if (activeMenuItem === MENU_ITEMS.RECTANGLE) {
-        const mouseX = e.pageX - canvas.offsetLeft;
-        const mouseY = e.pageY - canvas.offsetTop;
+        const mouseX = e.clientX || e.touches[0].clientX - canvas.offsetLeft;
+        const mouseY = e.clientY || e.touches[0].clientY - canvas.offsetTop;
         
         const width = mouseX - startX;
         const height = mouseY - startY;
@@ -202,8 +199,8 @@ const Board = () => {
       shouldDraw.current = true; 
       context.beginPath();
       if (activeMenuItem === MENU_ITEMS.CIRCLE) {
-        startX = e.pageX - canvas.offsetLeft;
-        startY = e.pageY - canvas.offsetTop;
+        startX = e.clientX || e.touches[0].clientX - canvas.offsetLeft;
+        startY = e.clientY || e.touches[0].clientY - canvas.offsetTop;
       }
       // context.moveTo(startX,startY);
     }
@@ -215,8 +212,8 @@ const Board = () => {
     const handleMouseUpCircle = (e) => {
       shouldDraw.current = false;
       if (activeMenuItem === MENU_ITEMS.CIRCLE) {
-        const mouseX = e.pageX ;
-        const mouseY = e.pageY;
+        const mouseX = e.clientX || e.touches[0].clientX ;
+        const mouseY = e.clientY || e.touches[0].clientY;
         
         const width = mouseX - startX;
         const height = mouseY - startY;
@@ -264,9 +261,7 @@ const Board = () => {
       shouldDraw.current = true; 
       context.beginPath();
       if (activeMenuItem === MENU_ITEMS.LINE) {
-        xLine = e.clientX;
-        yLine = e.clientY;
-        context.moveTo(xLine, yLine);
+        context.moveTo(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
       }
     }
 
@@ -277,7 +272,7 @@ const Board = () => {
     const handleMouseUpLine = (e) => {
       shouldDraw.current = false;
       if (activeMenuItem === MENU_ITEMS.LINE) {
-        context.lineTo(e.clientX,e.clientY)
+        context.lineTo(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY)
         context.stroke();
 
         const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
