@@ -3,7 +3,7 @@ import { MENU_ITEMS } from "@/constants";
 
 const initialState = {
     activeMenuItem: MENU_ITEMS.PENCIL,
-    actionMenuIten: null
+    actionMenuItem: null
 }
 
 export const menuSlice = createSlice({
@@ -14,7 +14,7 @@ export const menuSlice = createSlice({
             state.activeMenuItem = action.payload
         },
         actionItemClick: (state, action)=>{
-            state.actionMenuIten = action.payload
+            state.actionMenuItem = action.payload
         }
     }
 })

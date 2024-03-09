@@ -1,12 +1,14 @@
 import { MENU_ITEMS } from "@/constants";
-import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useLayoutEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionItemClick } from "@/slice/menuSlice";
 
 const Board = () => {
   const canvasRef = useRef(null);
   const shouldDraw = useRef(false);
-  const activeMenuItem = useSelector((state) => state.menu.activeMenuItem);
+  const {activeMenuItem, actionMenuItem} = useSelector((state) => state.menu)
   const { color, size } = useSelector((state) => state.toolbox[activeMenuItem]);
+  const dispatch = useDispatch();
   let startX, startY, xLine, yLine, x, y;
 
   // HOOK FOR SETTING COLOR AND SIZE
@@ -24,8 +26,23 @@ const Board = () => {
   }, [color, size]);
   // HOOK END
 
+  useEffect(()=>{
+    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    
+    if(actionMenuItem === MENU_ITEMS.DOWNLOAD){
+      const URL = canvas.toDataURL()
+      const anchor = document.createElement('a');
+      anchor.href = URL
+      anchor.download = 'sketch.jpg'
+      anchor.click();
+    }
+    dispatch(actionItemClick(null));
+  },[actionMenuItem,dispatch])
+
   // MOUNTING HOOK
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");

@@ -8,7 +8,7 @@ const initialState = {
     },
     [MENU_ITEMS.ERASER]: {
         color: COLORS.WHITE,
-        size: 10
+        size: 8
     },
     [MENU_ITEMS.RECTANGLE]: {
         color: COLORS.BLACK,
