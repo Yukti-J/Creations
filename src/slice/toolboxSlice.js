@@ -14,9 +14,18 @@ const initialState = {
         color: COLORS.BLACK,
         size: 2
     },
+    [MENU_ITEMS.CIRCLE]: {
+        color: COLORS.BLACK,
+        size: 2
+    },
+    [MENU_ITEMS.LINE]: {
+        color: COLORS.BLACK,
+        size: 2
+    },
     [MENU_ITEMS.UNDO]: {},
     [MENU_ITEMS.REDO]: {},
     [MENU_ITEMS.DOWNLOAD]: {},
+    [MENU_ITEMS.DELETE]: {},
 }
 
 export const toolboxSlice = createSlice({

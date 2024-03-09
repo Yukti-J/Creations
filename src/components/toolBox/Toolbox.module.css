@@ -27,7 +27,33 @@
         }
     }
 
-    @media screen and (max-width: 640px) {
+    .shapeSection{
+        @apply mb-1;
+
+        .boxTitle {
+            font-size: 11px;
+            color: theme('colors.text1');
+
+        }
+        .menuContainer{
+            @apply flex justify-between;
+
+            .iconContainer{
+                @apply cursor-pointer flex justify-center items-center h-8 w-8 rounded-md;
+      
+                &:hover, &.active {
+                    background-color: theme('colors.text2');
+                }
+                .icon {
+                    color: theme('colors.text1');
+                    height: 1rem;
+                    width: 1rem;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 840px) {
         top: unset;
         bottom: 0;
         width: 100%;

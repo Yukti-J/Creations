@@ -7,10 +7,10 @@ import {
   faRotateRight,
   faRotateLeft,
   faFileArrowDown,
-  faShapes
-
+  faShapes,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
-import styles from './menu.module.css'
+import styles from './Menu.module.css'
 import { MENU_ITEMS } from "@/constants";
 import { menuItemClick, actionItemClick } from "@/slice/menuSlice";
 import cx from "classnames";
@@ -34,16 +34,17 @@ const Menu = () => {
       <div className={cx(styles.iconContainer, {[styles.active]: activeMenuItem === MENU_ITEMS.ERASER})} onClick={()=>handleMenuItemClick(MENU_ITEMS.ERASER)}>
         <FontAwesomeIcon icon={faEraser} className={styles.icon}/>
       </div>
-{/*  */}
-      <div className={cx(styles.iconContainer, {[styles.active]: activeMenuItem === MENU_ITEMS.RECTANGLE})} onClick={()=>handleMenuItemClick(MENU_ITEMS.RECTANGLE)}>
+      <div className={cx(styles.iconContainer, {[styles.active]: activeMenuItem === MENU_ITEMS.RECTANGLE || activeMenuItem === MENU_ITEMS.CIRCLE || activeMenuItem === MENU_ITEMS.LINE})} onClick={()=>handleMenuItemClick(MENU_ITEMS.RECTANGLE)}>
         <FontAwesomeIcon icon={faShapes} className={styles.icon}/>
       </div>
-{/*  */}
       <div className={styles.iconContainer} onClick={() => {handleActionItemClick(MENU_ITEMS.UNDO)}}>
-        <FontAwesomeIcon icon={faRotateRight} className={styles.icon}/>
+        <FontAwesomeIcon icon={faRotateLeft} className={styles.icon}/>
       </div>
       <div className={styles.iconContainer} onClick={() => {handleActionItemClick(MENU_ITEMS.REDO)}}>
-        <FontAwesomeIcon icon={faRotateLeft} className={styles.icon}/>
+        <FontAwesomeIcon icon={faRotateRight} className={styles.icon}/>
+      </div>
+      <div className={styles.iconContainer} onClick={() => {handleActionItemClick(MENU_ITEMS.DELETE)}}>
+      <FontAwesomeIcon icon={faTrash} className={styles.icon}/>
       </div>
       <div className={styles.iconContainer} onClick={() => {handleActionItemClick(MENU_ITEMS.DOWNLOAD)}}>
         <FontAwesomeIcon icon={faFileArrowDown} className={styles.icon}/>
