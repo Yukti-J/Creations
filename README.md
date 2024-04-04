@@ -28,7 +28,7 @@ Follow these steps to get Creations up and running on your local machine:
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/your-username/creations.git
+git clone https://github.com/Yukti-J/Creations.git
 ```
 2. Navigate to the Project
 ```bash
